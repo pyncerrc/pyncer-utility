@@ -1,0 +1,22 @@
+{
+    "name": "pyncer/utility",
+    "type": "library",
+    "description": "Pyncer library containing common interfaces, traits, and classes.",
+    "homepage": "https://pyncer.com/utility",
+    "license": "Unlicense",
+    "require": {
+        "php": ">=8.1",
+        "psr/container": "^2.0.2",
+        "pyncer/iterable": "*",
+        "pyncer/exception": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Pyncer\\Utility\\": "src/"
+        }
+    },
+    "support": {
+        "issues": "https://github.com/pyncerrc/pyncer-utility/issues",
+        "source": "https://github.com/pyncerrc/pyncer-utility"
+    }
+}
