@@ -1,8 +1,6 @@
 <?php
 namespace Pyncer\Utility;
 
-use Pyncer as p;
-
 trait InitializeTrait
 {
     private bool $initialized = false;
