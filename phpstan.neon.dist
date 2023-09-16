@@ -1,0 +1,14 @@
+parameters:
+    checkMissingIterableValueType: false
+    level: max
+    paths:
+        - src
+    ignoreErrors:
+        -
+            message: "#^Used constant Pyncer\\\\DATE_TIME_FORMAT not found\\.$#"
+            count: 1
+            path: src/Params.php
+        -
+            message: "#^Constant Pyncer\\\\DATE_TIME_FORMAT not found\\.$#"
+            count: 1
+            path: src/Params.php

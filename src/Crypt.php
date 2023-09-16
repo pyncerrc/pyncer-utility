@@ -1,6 +1,8 @@
 <?php
 namespace Pyncer\Utility;
 
+use Pyncer\Exception\RuntimeException;
+
 use function base64_encode;
 use function base64_decode;
 use function openssl_cipher_iv_length;
@@ -20,34 +22,48 @@ class Crypt
 
         $this->method = $method;
 
-        $this->iv = random_bytes(
-            openssl_cipher_iv_length($this->method)
-        );
+        $length = openssl_cipher_iv_length($this->method);
+
+        if ($length === false || $length < 1) {
+            throw new RuntimeException('Cipher length could not be determined.');
+        }
+
+        $this->iv = random_bytes($length);
     }
 
-    public function encrypt(string $s): string
+    public function encrypt(string $value): string
     {
         $output = openssl_encrypt(
-            $s,
+            $value,
             $this->method,
             $this->key,
             0,
             $this->iv
         );
 
+        if ($output === false) {
+            throw new RuntimeException('Value could not be encrypted.');
+        }
+
         return base64_encode($output);
     }
 
-    public function decrypt(string $s): string
+    public function decrypt(string $value): string
     {
-        $output = base64_decode($s);
+        $output = base64_decode($value);
 
-        return openssl_decrypt(
+        $output = openssl_decrypt(
             $output,
             $this->method,
             $this->key,
             0,
             $this->iv
         );
+
+        if ($output === false) {
+            throw new RuntimeException('Value could not be decrypted.');
+        }
+
+        return $output;
     }
 }

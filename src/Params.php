@@ -1,6 +1,7 @@
 <?php
 namespace Pyncer\Utility;
 
+use DateTime;
 use DateTimeInterface;
 use Pyncer\Iterable\Map;
 use Pyncer\Utility\ParamsInterface;
@@ -12,6 +13,7 @@ use function intval;
 use function is_array;
 use function iterator_to_array;
 use function Pyncer\date_time as pyncer_date_time;
+use function Pyncer\basify as pyncer_basify;
 use function strval;
 
 use const Pyncer\DATE_TIME_FORMAT as PYNCER_DATE_TIME_FORMAT;
@@ -22,7 +24,7 @@ class Params extends Map implements ParamsInterface
     {
         return $this->values[$key] ?? null;
     }
-    public function set(string $key, $value): static
+    public function set(string $key, mixed $value): static
     {
         if ($value === null) {
             unset($this->values[$key]);
@@ -48,7 +50,7 @@ class Params extends Map implements ParamsInterface
         $value = $this->get($key);
 
         if ($value !== null) {
-            $value = intval($value);
+            $value = intval(pyncer_basify($value));
         }
 
         if ($value === null || $value === 0) {
@@ -68,10 +70,23 @@ class Params extends Map implements ParamsInterface
 
     public function getStr(string $key, ?string $empty = ''): ?string
     {
+        return $this->getString($key, $empty);
+    }
+    public function setStr(string $key, ?string $value): static
+    {
+        return $this->setString($key, $value);
+    }
+
+    public function getString(string $key, ?string $empty = ''): ?string
+    {
         $value = $this->get($key);
 
         if ($value !== null) {
-            $value = strval($value);
+            if (is_scalar($value)) {
+                $value = strval($value);
+            } else {
+                $value = null;
+            }
         }
 
         if ($value === null || $value === '') {
@@ -80,7 +95,7 @@ class Params extends Map implements ParamsInterface
 
         return $value;
     }
-    public function setStr(string $key, ?string $value): static
+    public function setString(string $key, ?string $value): static
     {
         if ($value === null) {
             return $this->set($key, null);
@@ -125,7 +140,7 @@ class Params extends Map implements ParamsInterface
         $value = $this->get($key);
 
         if ($value !== null) {
-            $value = floatval($value);
+            $value = floatval(pyncer_basify($value));
         }
 
         if ($value === null || $value === 0.0) {
@@ -167,20 +182,15 @@ class Params extends Map implements ParamsInterface
             return $this->set($key, null);
         }
 
-        if (!is_array($value)) {
-            if ($value instanceof Traversable) {
-                $value = iterator_to_array($value, true);
-            } else {
-                $value = [$value];
-            }
-        }
+        $value = [...$value];
 
         return $this->set($key, $value);
     }
 
-    public function getDateTime(string $key, null|string|DateTimeInterface $empty = null): DateTime
+    public function getDateTime(string $key, null|string|DateTimeInterface $empty = null): ?DateTime
     {
         $value = $this->get($key);
+
         if ($value === null) {
             if ($empty === null) {
                 return $empty;
@@ -197,7 +207,12 @@ class Params extends Map implements ParamsInterface
             return $this->set($key, null);
         }
 
-        $value = pyncer_date_time($value)->format(PYNCER_DATE_TIME_FORMAT);
+        $value = pyncer_date_time($value);
+
+        if ($value !== null) {
+            $value = $value->format(PYNCER_DATE_TIME_FORMAT);
+        }
+
         return $this->set($key, $value);
     }
 }
