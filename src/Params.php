@@ -11,7 +11,6 @@ use function boolval;
 use function floatval;
 use function intval;
 use function is_array;
-use function iterator_to_array;
 use function Pyncer\date_time as pyncer_date_time;
 use function Pyncer\basify as pyncer_basify;
 use function strval;
@@ -163,8 +162,8 @@ class Params extends Map implements ParamsInterface
         $value = $this->get($key);
 
         if ($value !== null && !is_array($value)) {
-            if ($value instanceof Traversable) {
-                $value = iterator_to_array($value, true);
+            if (is_iterable($value)) {
+                $value = [...$value];
             } else {
                 $value = [$value];
             }
