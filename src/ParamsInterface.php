@@ -1,6 +1,8 @@
 <?php
 namespace Pyncer\Utility;
 
+use DateTime;
+use DateTimeInterface;
 use Pyncer\Iterable\MapInterface;
 
 interface ParamsInterface extends MapInterface

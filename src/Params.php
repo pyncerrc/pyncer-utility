@@ -5,7 +5,6 @@ use DateTime;
 use DateTimeInterface;
 use Pyncer\Iterable\Map;
 use Pyncer\Utility\ParamsInterface;
-use Traversable;
 
 use function boolval;
 use function floatval;
