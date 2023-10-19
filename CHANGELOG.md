@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.0.2 - 2023-10-19
+
+### Fixed
+
+- Added missing getDateTime and setDateTime functions to ParamsInterface.
+
 ## 1.0.1 - 2023-09-16
 
 ### Added

@@ -28,4 +28,7 @@ interface ParamsInterface extends MapInterface
 
     public function getArray(string $key, ?array $empty = []): ?array;
     public function setArray(string $key, ?iterable $value): static;
+
+    public function getDateTime(string $key, null|string|DateTimeInterface $empty = null): ?DateTime;
+    public function setDateTime(string $key, null|string|DateTimeInterface $value): static;
 }
