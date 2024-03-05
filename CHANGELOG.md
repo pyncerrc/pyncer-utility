@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.1.0 - Unreleased
+
+### Added
+
+- Added AbstractDriver class.
+- Added DriverNotFoundException class.
+
 ## 1.0.2 - 2023-10-19
 
 ### Fixed
