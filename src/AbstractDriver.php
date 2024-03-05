@@ -24,7 +24,13 @@ abstract class AbstractDriver extends Params
     }
     public function setName(string $value): static
     {
-        return $this->setString('name', $value);
+        $this->setString('name', $value);
+
+        if (!class_exists($this->getClass(), true)) {
+            throw new DriverNotFoundException($this->getType(), $value);
+        }
+
+        return $this;
     }
 
     public function set(string $key, mixed $value): static
@@ -42,10 +48,6 @@ abstract class AbstractDriver extends Params
                 throw new InvalidArgumentException(
                     'The specified driver name, ' . $value . ', is invalid.'
                 );
-            }
-
-            if (!class_exists($this->getClass(), true)) {
-                throw new DriverNotFoundException($this->getType(), $value);
             }
         }
 
