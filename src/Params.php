@@ -63,7 +63,7 @@ class Params extends Map implements ParamsInterface
             return $this->set($key, null);
         }
 
-        return $this->set($key, intval($value));
+        return $this->set($key, $value);
     }
 
     public function getStr(string $key, ?string $empty = ''): ?string
@@ -79,15 +79,19 @@ class Params extends Map implements ParamsInterface
     {
         $value = $this->get($key);
 
-        if ($value !== null) {
-            if (is_scalar($value)) {
-                $value = strval($value);
-            } else {
-                $value = null;
-            }
+        if (!is_scalar($value)) {
+            $value = null;
         }
 
-        if ($value === null || $value === '') {
+        $value = match ($value) {
+            null => '',
+            false => '0',
+            default => strval($value),
+        };
+
+        $value = trim($value);
+
+        if ($value === '') {
             $value = $empty;
         }
 
@@ -99,7 +103,7 @@ class Params extends Map implements ParamsInterface
             return $this->set($key, null);
         }
 
-        return $this->set($key, strval($value));
+        return $this->set($key, trim($value));
     }
 
     public function getBool(string $key, ?bool $empty = false): ?bool
@@ -153,7 +157,7 @@ class Params extends Map implements ParamsInterface
             return $this->set($key, null);
         }
 
-        return $this->set($key, floatval($value));
+        return $this->set($key, $value);
     }
 
     public function getArray(string $key, ?array $empty = []): ?Array

@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.1.1 - 2024-05-06
+
+### Chagned
+
+- Calling Params::getString() will now return '0' if false instead of ''.
+
 ## 1.1.0 - 2024-03-22
 
 ### Added
