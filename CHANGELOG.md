@@ -1,8 +1,15 @@
 # Change Log
 
+## 1.1.2 - 2024-05-21
+
+### Changed
+
+- Params::getString() now supports arrays and will return '0' if empty or '1' if not empty.
+- Params::getString() will now trim before testing if empty.
+
 ## 1.1.1 - 2024-05-06
 
-### Chagned
+### Changed
 
 - Calling Params::getString() will now return '0' if false instead of ''.
 

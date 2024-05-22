@@ -13,6 +13,7 @@ use function is_array;
 use function Pyncer\date_time as pyncer_date_time;
 use function Pyncer\basify as pyncer_basify;
 use function strval;
+use function trim;
 
 use const Pyncer\DATE_TIME_FORMAT as PYNCER_DATE_TIME_FORMAT;
 
@@ -79,8 +80,10 @@ class Params extends Map implements ParamsInterface
     {
         $value = $this->get($key);
 
-        if (!is_scalar($value)) {
-            $value = null;
+        $value = pyncer_basify($value);
+
+        if (is_array($value)) {
+            $value = boolval($value);
         }
 
         $value = match ($value) {
