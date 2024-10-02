@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.2.0 - 2024-10-02
+
+### Added
+
+- Added getParams and setParams function to Params class.
+
 ## 1.1.2 - 2024-05-21
 
 ### Changed

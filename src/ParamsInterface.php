@@ -7,6 +7,9 @@ use Pyncer\Iterable\MapInterface;
 
 interface ParamsInterface extends MapInterface
 {
+    public function getParams(string $key, null|array|ParamsInterface $empty = []): ?ParamsInterface;
+    public function setParams(string $key, ?ParamsInterface $value): static;
+
     public function getInt(string $key, ?int $empty = 0): ?int;
     public function setInt(string $key, ?int $value): static;
 

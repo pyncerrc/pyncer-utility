@@ -44,6 +44,29 @@ class Params extends Map implements ParamsInterface
         return true;
     }
 
+    public function getParams(string $key, null|array|ParamsInterface $empty = []): ?ParamsInterface
+    {
+        $value = $this->get($key);
+
+        if ($value === null || !is_array($value)) {
+            $value = $empty;
+        }
+
+        if (is_array($value)) {
+            return new Params($value);
+        }
+
+        return $value;
+    }
+    public function setParams(string $key, ?ParamsInterface $params): static
+    {
+        if ($value === null) {
+            return $this->set($key, null);
+        }
+
+        return $this->set($key, $value->getData());
+    }
+
     public function getInt(string $key, ?int $empty = 0): ?int
     {
         $value = $this->get($key);
