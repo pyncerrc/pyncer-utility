@@ -1,10 +1,16 @@
 # Change Log
 
+## 1.3.0 - 2024-11-15
+
+### Changed
+
+- Params::getBool() no long considers false empty to make the $empty param actually useful.
+
 ## 1.2.0 - 2024-10-02
 
 ### Added
 
-- Added getParams and setParams function to Params class.
+- Added getParams and setParams methods to Params class.
 
 ## 1.1.2 - 2024-05-21
 

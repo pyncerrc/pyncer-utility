@@ -144,7 +144,7 @@ class Params extends Map implements ParamsInterface
             }
         }
 
-        if ($value === null || $value === false) {
+        if ($value === null) {
             $value = $empty;
         }
 
